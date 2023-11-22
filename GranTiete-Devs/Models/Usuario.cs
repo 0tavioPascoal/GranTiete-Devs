@@ -9,25 +9,23 @@ public class Usuario
 {
     [Key]
     public string UsuarioId { get; set; }
+    
     [ForeignKey("UsuarioId")]
     public IdentityUser ContaIdentity { get; set; }
 
-    [Required(ErrorMessage ="Informe um nome...")]
-        [StringLength(60, ErrorMessage = "O nome deve possuir no maximo 30 caracteres!")]
-        public string Nome { get; set; }
+    [Required(ErrorMessage = "Informe o Nome")]
+    [StringLength(60, ErrorMessage = "O Nome deve possuir no máximo 60 caracteres")]
+    public string Nome { get; set; }
 
-    [Required(ErrorMessage = "Informe a data de nascimento!")]
+    [Required(ErrorMessage = "Informe a Data de Nascimento")]
     [DataType(DataType.Date)]
     public DateTime DataNascimento { get; set; }
 
     [StringLength(300)]
-    public string fotoPerfil { get; set; }
+    public string FotoPerfil { get; set; }
 
-    [Required(ErrorMessage = "Informe a Área de atuação")]
-
+    [Required(ErrorMessage = "Informe a Área de Atuação")]
     public int AreaAtuacaoId { get; set; }
     [ForeignKey("AreaAtuacaoId")]
-
     public AreaAtuacao AreaAtuacao { get; set; }
-    
 }

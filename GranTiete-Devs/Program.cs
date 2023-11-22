@@ -1,4 +1,4 @@
-using GranTiete_Devs.data;
+using GranTiete_Devs.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,17 +7,19 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
-// Criação do serviço de conexão.
+// Criação do Serviço de Conexão
 string conn = builder.Configuration.GetConnectionString("GranConn");
 builder.Services.AddDbContext<AppDbContext>(
     options => options.UseMySql(conn, ServerVersion.AutoDetect(conn))
 );
 
-//Crição do serviço de gestão dos úsuarios
+// Criação do Serviço de Gestão de Usuários
+builder.Services.AddIdentity<IdentityUser, IdentityRole>(
+    options => options.SignIn.RequireConfirmedEmail = false
+)
+    .AddEntityFrameworkStores<AppDbContext>()
+    .AddDefaultTokenProviders();
 
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-.AddEntityFrameworkStores<AppDbContext>()
-.AddDefaultTokenProviders();
 
 var app = builder.Build();
 
